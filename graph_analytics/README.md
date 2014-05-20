@@ -6,8 +6,8 @@ Go to [GraphLab](http://graphlab.org/projects/tutorials.html#cluster) to see the
 
 ## Packages
 
-graph.tar.gz  
-Twitter-dataset.zip
+[graph.tar.gz](http://parsa.epfl.ch/cloudsuite/software/graph.tar.gz)  
+[Twitter-dataset.zip](http://socialcomputing.asu.edu/uploads/1296759055/Twitter-dataset.zip)
 
 ## Building
 

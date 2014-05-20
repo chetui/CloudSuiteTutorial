@@ -3,9 +3,9 @@
 
 ## Packages
 
-libevent-2.0.21-stable.tar.gz  
-memcached-1.4.15.tar.gz  
-memcached.tar.gz  
+[libevent-2.0.21-stable.tar.gz](https://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz)  
+[memcached-1.4.15.tar.gz](http://memcached.googlecode.com/files/memcached-1.4.15.tar.gz)  
+[memcached.tar.gz](http://parsa.epfl.ch/cloudsuite/software/memcached.tar.gz)  
 
 ## Building on Server
 
