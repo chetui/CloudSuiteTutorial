@@ -7,7 +7,7 @@ This is the CloudSuite Tutorial including installation, running, etc.
 
 The motivation of this repo is to help our [ZJU ArcLab](http://arc.zju.edu.cn) members to install & use this benchmark.
 
-For ZJU Arclab members, refer <http://arc.zju.edu.cn:18083/arclab/forum/issues/4> to see more details, including some deployed images which you can run your benchmark directly.
+For ZJU Arclab members, refer [ZJU ArcLab GitLab](http://arc.zju.edu.cn:18083/arclab/forum/issues/4) to see more details, including some deployed images which you can run your benchmark directly.
 
 ### Tutorial List
 
