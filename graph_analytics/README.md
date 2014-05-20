@@ -1,3 +1,6 @@
+* Author: Xinjie YU ([chetui](http://blog.chetui.org))
+* Email: yuxinjiect@gmail.com
+
 Following guide is provided for a single-machine setup.  
 Go to [GraphLab](http://graphlab.org/projects/tutorials.html#cluster) to see the instructions for cluster deployment.  
 
