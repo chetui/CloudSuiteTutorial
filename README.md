@@ -15,7 +15,7 @@ For ZJU Arclab members, refer <http://arc.zju.edu.cn:18083/arclab/forum/issues/4
 
 * [Graph Analytics](https://github.com/chetui/CloudSuiteTutorial/tree/master/graph_analytics)
 
-### Useful Links
+### References
 
 * [Official HomePage](http://parsa.epfl.ch/cloudsuite/cloudsuite.html)  
 
