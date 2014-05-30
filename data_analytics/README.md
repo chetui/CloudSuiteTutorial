@@ -44,7 +44,7 @@ $ exit
 ```
 
 Now you have created a hadoop account.   
-**Notice that all the following steps in this tutorial should be executed under this hadoop account. **  
+**Notice that all the following steps in this tutorial should be executed under this hadoop account.**  
 
 #### Uncompressing Packages
 
