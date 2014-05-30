@@ -1,10 +1,17 @@
 * Author: Xinjie YU ([chetui](http://blog.chetui.org))
 * Email: yuxinjiect@gmail.com
 
+## Introduction
+
+The data analytics benchmark relies on using the Hadoop MapReduce framework to perform machine learning analysis on large-scale datasets. Apache provides an machine learning library, Mahout, that is designed to run with Hadoop and perform large-scale data analytics.  
+
+The dataset of this benchmark is all the pages of lastest [English Wikipedia](http://dumps.wikimedia.org/enwiki/ ).  
+
 If you want to install all these into a single node, make sure your node have enough disk capacity.   
 Since the downloaded testing datasetat will increase over time, On 2014.05.27 my node needs 120GB disk capacity totally.  
     
-If you have an deployed image, you can jump to [Runing Benchmark Section](https://github.com/chetui/CloudSuiteTutorial/tree/master/data_analytics#running-benchmark) directly. 
+If you have an deployed image, you can jump to [Runing Benchmark Section](https://github.com/chetui/CloudSuiteTutorial/tree/master/data_analytics#running-benchmark) directly.   
+
 
 ## Packages
 
@@ -259,6 +266,12 @@ You can refer help info of Mahout to explore different ways of running benchmark
 ```
 ./mahout-distribution-0.6/bin/mahout testclassifier --help
 ```
+
+#### Metric
+
+* Thoughput: the number of pages classified per unit of time
+
+It can be calculated directly by pages number and running time.
 
 ## Hadoop Parameter Tuning
 

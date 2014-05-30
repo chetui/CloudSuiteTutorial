@@ -1,8 +1,14 @@
 * Author: Xinjie YU ([chetui](http://blog.chetui.org))
 * Email: yuxinjiect@gmail.com
 
+## Introduction
+
+It use the GraphLab machine learning and data mining software for the graph analytics benchmark. It implemented TunkRank on GraphLab, which provides the influence of a Twitter user based on the number of that user's followers.  
+
 Following guide is provided for a single-machine setup.  
 Go to [GraphLab](http://graphlab.org/projects/tutorials.html#cluster) to see the instructions for cluster deployment.  
+
+If you have an deployed image, you can jump to [Running Section](https://github.com/chetui/CloudSuiteTutorial/tree/master/graph_analytics#running) directly.   
 
 ## Packages
 

@@ -1,6 +1,12 @@
 * Author: Xinjie YU ([chetui](http://blog.chetui.org))
 * Email: yuxinjiect@gmail.com
 
+## Introduction
+
+This benchmark uses the Memcached data caching server, simulating the behavior of a Twitter caching server using the twitter dataset.  
+
+If you have an deployed image, you can jump to [Running Server Section](https://github.com/chetui/CloudSuiteTutorial/tree/master/data_caching#runing-server) directly.   
+
 ## Packages
 
 [libevent-2.0.21-stable.tar.gz](https://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz)  
@@ -50,7 +56,7 @@ Then build it:
 $ make
 ```
 
-## Runing Server
+## Running Server
 
 ```
 $ memcached -t 4 -m 4096 -n 550
@@ -60,7 +66,7 @@ $ memcached -t 4 -m 4096 -n 550
 -n 550: minimal object size of 550 bytes  
 -p 11211: the default port 11211 can be changed by this option  
 
-## Runing Client
+## Running Client
 
 #### Configuring Target Servers
 
@@ -139,6 +145,10 @@ You may need to adjust ***your_rps*** for many times, until it achieve the maxim
 $ cd memcached/memcached_client
 $ ./loader -a ../twitter_dataset/twitter_dataset_30x -s servers.txt -g 0.8 -T 1 -c 200 -w 8 -e -r your_rps
 ```
+
+#### Metric
+
+* Thoughput: the number of requests served per second
 
 ## References
 
