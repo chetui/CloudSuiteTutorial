@@ -3,17 +3,19 @@
 
 If you want to install all these into a single node, make sure your node have at least 120GB disk capacity (I suggest the disk capacity is 150GB or larger).
 
+If you have an deployed image, you can jump to [Runing Benchmark Section](https://github.com/chetui/CloudSuiteTutorial/tree/master/data_analytics#running-benchmark) directly. 
+
 ## Packages
 
-[Analytics.tar.gz](http://parsa.epfl.ch/cloudsuite/software/analytics.tar.gz) (including Hadoop0.20.2, Mahout and Apache Maven.)
-[Wikipedia Training Dataset](http://parsa.epfl.ch/cloudsuite/software/enwiki-20100904-pages-articles1.xml.bz2) (Around 5.4GB after decompression)
+[Analytics.tar.gz](http://parsa.epfl.ch/cloudsuite/software/analytics.tar.gz) (including Hadoop0.20.2, Mahout and Apache Maven.)  
+[Wikipedia Training Dataset](http://parsa.epfl.ch/cloudsuite/software/enwiki-20100904-pages-articles1.xml.bz2) (Around 5.4GB after decompression)  
 [Wikipedia Test Dataset](http://download.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2) (Around 45GB after decompression)
 
 ## Installing Hadoop
 
 #### Account Setting
 
-It is suggested to create a isolated account to run this benchmark.
+It is suggested to create a isolated account to run this benchmark.  
 Hence, we are going to create a account and a group all named ***hadoop***.
 
 ```
@@ -22,7 +24,7 @@ $ sudo useradd -md /home/hadoop -g hadoop hadoop
 $ sudo passwd hadoop
 ```
 
-[Option] You can change the default shell from /bin/sh to /bin/bash.
+**[Option]** You can change the default shell from /bin/sh to /bin/bash.
 
 ```
 $ su - hadoop
@@ -41,8 +43,8 @@ $ exit
 $ exit
 ```
 
-Now you have create a hadoop account. 
-**Notice!! All the following steps in this tutorial should be executed under this hadoop account. **
+Now you have created a hadoop account.   
+**Notice that all the following steps in this tutorial should be executed under this hadoop account. **  
 
 #### Uncompressing Packages
 
@@ -64,7 +66,7 @@ $ sudo chown hadoop:hadoop ./categories.txt
 
 Hadoop needs Java JDK 1.6 or later.  
 
-Make sure your machine can access to the software source.
+Make sure your machine can access to the software source.  
 Different Linux Distribution may be various. I use Ubuntu 12.04.
 
 ```
@@ -94,7 +96,8 @@ $ mkdir /home/hadoop/hadoop-0.20.2/namespace
 $ mkdir /home/hadoop/hadoop-0.20.2/tmp
 ```
 
-Configure path of directories: modify following part in ***./hadoop-0.20.2/conf/hdfs-site.xml***:
+Configure path of directories.  
+Modify following part in ***./hadoop-0.20.2/conf/hdfs-site.xml***:
 
 ```
   <property>
@@ -123,6 +126,8 @@ Start Hadoop Service:
 $ $HADOOP_HOME/bin/start-all.sh     
 ```
 
+Refer [How to use Hadoop Section](https://github.com/chetui/CloudSuiteTutorial/tree/master/data_analytics#how-to-use-hadoop) to know more about Hadoop command.
+
 ## Installing Mahout
 
 You need to connect to the Internet to do the following steps.
@@ -146,34 +151,34 @@ $ mv enwiki-20100904-pages-articles1.xml ./mahout-distribution-0.6/examples/temp
 $ mv enwiki-latest-pages-articles.xml ./mahout-distribution-0.6/examples/temp
 ```
 
-enwiki-20100904-pages-articles1.xml is the training dataset.
+enwiki-20100904-pages-articles1.xml is the training dataset.  
 enwiki-latest-pages-articles.xml is the testing dataset.
 
 
 #### Chunking Dataset
 
-You need to chunk both datasets into 64MB pieces.
-The output data would be stored in HDFS.
+You need to chunk both datasets into 64MB pieces.  
+The output data would be stored in HDFS.  
 
-1. Chunk training dataset.
+1) Chunk training dataset.
 
 ```
 $ ./mahout-distribution-0.6/bin/mahout wikipediaXMLSplitter -d /home/hadoop/mahout-distribution-0.6/examples/temp/enwiki-20100904-pages-articles1.xml -o wikipedia-training/chunks -c 64
 ```
-The output data would be stored in wikipedia-training of HDFS.
+The output data would be stored in wikipedia-training of HDFS.  
 You can check chunk-*.xml files by following command.
 
 ```
 $ $HADOOP_HOME/bin/hadoop dfs -ls wikipedia-training/chunks
 ```
 
-2. Chunk testing dataset.
+2) Chunk testing dataset.
 
 ```
 $ ./mahout-distribution-0.6/bin/mahout wikipediaXMLSplitter -d /home/hadoop/mahout-distribution-0.6/examples/temp/enwiki-latest-pages-articles.xml -o wikipedia/chunks -c 64
 ```
 
-The output data would be stored in wikipedia of HDFS.
+The output data would be stored in wikipedia of HDFS.  
 You can check chunk-*.xml files by following command.
 
 ```
@@ -186,10 +191,10 @@ $ $HADOOP_HOME/bin/hadoop dfs -ls wikipedia/chunks
 $ cp categories.txt ./mahout-distribution-0.6/examples/temp
 ```
 
-Your following action on Hadoop may need at lease 12G memory under the default configuration.
-If you want to change the configuration of Hadoop, refer to **Parameter Tuning Section**.
+Your following action on Hadoop may need at lease 12G memory under the default configuration.  
+If you want to change the configuration of Hadoop, refer to [Parameter Tuning Section](https://github.com/chetui/CloudSuiteTutorial/tree/master/data_analytics#hadoop-parameter-tuning).  
 
-1. On training dataset.
+1) On training dataset.
 
 ```
 $ ./mahout-distribution-0.6/bin/mahout wikipediaDataSetCreator -i wikipedia-training/chunks -o traininginput -c /home/hadoop/mahout-distribution-0.6/examples/temp/categories.txt
@@ -201,7 +206,7 @@ Check file ***part-r-00000 in traininginput***.
 $ $HADOOP_HOME/bin/hadoop dfs -ls traininginput
 ```
 
-2. On testing dataset.
+2) On testing dataset.
 
 ```
 $ ./mahout-distribution-0.6/bin/mahout wikipediaDataSetCreator -i wikipedia/chunks -o wikipediainput -c /home/hadoop/mahout-distribution-0.6/examples/temp/categories.txt
@@ -227,25 +232,31 @@ $ $HADOOP_HOME/bin/hadoop dfs -ls
 
 ## Running Benchmark
 
-Check directory ***wikipediamodel***.
+Check directory ***wikipediainput-output***.
 
 ```
 $ $HADOOP_HOME/bin/hadoop dfs -ls
 ```
 
-If there exist a directory named ***wikipediainput-output***, it means the benchmark already be runned.
+If there exist a directory named ***wikipediainput-output***, it means the benchmark already be runned.  
 If you want to run this benchmark again, you need to remove ***wikipediainput-output*** directory first.
 
 ```
 $ $HADOOP_HOME/bin/hadoop dfs -rmr wikipediainput-output
 ```
 
-Before running this benchmark, you may need to tune parameter of Hadoop according your hardware configuration. Please refer to **Parameter Tuning Section**.
+Before running this benchmark, you may need to tune parameter of Hadoop according your hardware configuration. Please refer to [Parameter Tuning Section](https://github.com/chetui/CloudSuiteTutorial/tree/master/data_analytics#hadoop-parameter-tuning).
 
 Now you can run this benchmark:
 
 ```
 ./mahout-distribution-0.6/bin/mahout testclassifier -m wikipediamodel -d wikipediainput --method mapreduce
+```
+
+You can refer help info of Mahout to explore different ways of running benchmark:
+
+```
+./mahout-distribution-0.6/bin/mahout testclassifier --help
 ```
 
 ## Hadoop Parameter Tuning
@@ -311,6 +322,6 @@ Exception in thread "main" ... org.apache.hadoop.hdfs.server.namenode.SafeModeEx
 
 **Solution**
 
-When the HDFS is just startup, it will fall into safe mode to check metadata & data block. 
+When the HDFS is just startup, it will fall into safe mode to check metadata & data block.   
 You just need to wait for a few minutes and retry your command.
 
