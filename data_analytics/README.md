@@ -1,15 +1,16 @@
 * Author: Xinjie YU ([chetui](http://blog.chetui.org))
 * Email: yuxinjiect@gmail.com
 
-If you want to install all these into a single node, make sure your node have at least 120GB disk capacity (I suggest the disk capacity is 150GB or larger).
-
+If you want to install all these into a single node, make sure your node have enough disk capacity.   
+Since the downloaded testing datasetat will increase over time, On 2014.05.27 my node needs 120GB disk capacity totally.  
+    
 If you have an deployed image, you can jump to [Runing Benchmark Section](https://github.com/chetui/CloudSuiteTutorial/tree/master/data_analytics#running-benchmark) directly. 
 
 ## Packages
 
 [Analytics.tar.gz](http://parsa.epfl.ch/cloudsuite/software/analytics.tar.gz) (including Hadoop0.20.2, Mahout and Apache Maven.)  
 [Wikipedia Training Dataset](http://parsa.epfl.ch/cloudsuite/software/enwiki-20100904-pages-articles1.xml.bz2) (Around 5.4GB after decompression)  
-[Wikipedia Test Dataset](http://download.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2) (Around 45GB after decompression)
+[Wikipedia Test Dataset](http://download.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2) (The size will increase over time. On 2014.05.27 its size is around 45GB after decompression)
 
 ## Installing Hadoop
 
@@ -325,3 +326,6 @@ Exception in thread "main" ... org.apache.hadoop.hdfs.server.namenode.SafeModeEx
 When the HDFS is just startup, it will fall into safe mode to check metadata & data block.   
 You just need to wait for a few minutes and retry your command.
 
+## Reference
+
+* [Official Installation Guideline](http://parsa.epfl.ch/cloudsuite/analytics.html)
