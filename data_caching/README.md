@@ -73,12 +73,20 @@ e.g. If you run the client on the same machine with the only server, then you ca
 
 #### Scaling the Dataset & Warming up Target Servers
 
-Scaling the dataset to 30 times , and warming up the server at the same time (the original dataset requires 300MB Memcached server memory, while the dataset scaling to 30 times requres 10GB):
+If it is your have not scaled the dataset to 30 times, then you need to create it according to following commands. And the server would be warmed up at the same time (the original dataset requires 300MB Memcached server memory, while the dataset scaling to 30 times requres 10GB):
 
 ```
 $ cd memcached/memcached_client
 $ ./loader -a ../twitter_dataset/twitter_dataset_unscaled -o ../twitter_dataset/twitter_dataset_30x -s servers.txt -w 1 -S 30 -D 4096 -j -T 1 
 ```
+
+Or if the scaled file is already created, you can warming up server directly:
+
+```
+$ cd memcached/memcached_client
+$ ./loader -a ../twitter_dataset/twitter_dataset_30x -s servers.txt -w 1 -S 1 -D 4096 -j -T 1
+```
+
 -w 1: number of client threads  
 -S 30: scaling factor  
 -D 4096: target server memory, MB  
@@ -105,13 +113,6 @@ max - maximum latency achieved for some package during the last T
 std - standard deviation
 avg_size - average data size for get requests during the last T
 ```
-
-Or if the scaled file is already created, you can warming up server directly:
-
-```
-$ cd memcached/memcached_client
-$ ./loader -a ../twitter_dataset/twitter_dataset_30x -s servers.txt -w 1 -S 1 -D 4096 -j -T 1
-```
 Please wait until ./loader program finished.
 
 #### Determining the Maximum Throughput
@@ -130,7 +131,9 @@ This program would not stop itself. You have to estimate the maximum rps in the 
 #### Running Client Benchmark  
 
 The command above will run the benchmark with the maximum throughput, however, the QoS requirements will highly likely be violated.  
-For not to violate the target QoS requirements, replace the following ***your_rps*** by your adjusted value. e.g. Let ***your_rps = 0.9 * max_rps***
+The target QoS requires that 95% of the requests are executed within 10ms  
+For not to violate the target QoS requirements, replace the following ***your_rps*** by your adjusted value. e.g. Let ***your_rps = 0.9 * max_rps***  
+You may need to adjust ***your_rps*** for many times, until it achieve the maximum throughput without violating the target QoS requirements.
 
 ```
 $ cd memcached/memcached_client
