@@ -15,6 +15,8 @@ For ZJU Arclab members, refer [ZJU ArcLab GitLab](http://arc.zju.edu.cn:18083/ar
 
 * [Data Caching Tutorial](https://github.com/chetui/CloudSuiteTutorial/tree/master/data_caching)
 
+* [Data Serving Tutorial](https://github.com/chetui/CloudSuiteTutorial/tree/master/data_serving)
+
 * [Graph Analytics Tutorail](https://github.com/chetui/CloudSuiteTutorial/tree/master/graph_analytics)
 
 * [Media Streaming Tutorail](https://github.com/chetui/CloudSuiteTutorial/tree/master/media_streaming)
