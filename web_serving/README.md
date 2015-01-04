@@ -71,7 +71,7 @@ Because the source code of Faban provided by the official benchmark package has 
     cd web-release
     ```
 
-2.setup Olio
+2. setup Olio
 
     ```
     tar xzvf apache-olio-php-src-0.2.tar.gz
