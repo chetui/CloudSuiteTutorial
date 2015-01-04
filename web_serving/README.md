@@ -72,6 +72,7 @@ Because the source code of Faban provided by the official benchmark package has 
     ```
 
 2.setup Olio
+
     ```
     tar xzvf apache-olio-php-src-0.2.tar.gz
     ```
@@ -97,7 +98,9 @@ Because the source code of Faban provided by the official benchmark package has 
     ant deploy.jar
     cp $OLIO_HOME/workload/php/trunk/build/OlioDriver.jar $FABAN_HOME/benchmarks
     ```
+
 3. run faban master
+
     ```
     $FABAN_HOME/master/bin/startup.sh
     ```
