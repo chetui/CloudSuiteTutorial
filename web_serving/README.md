@@ -9,45 +9,45 @@ Because the source code of Faban provided by the official benchmark package has 
 #Prepare the disk imgs and setup the environment
 
 1. Create disk imgs (we named it webserving.img). For convenience, I set the img size 50GB. When the deployment is complete successfully I find the client VM occupies around 5GB, server VM occupies about 32GB and the backend VM occupies 5.2GB.
-```
-qemu-img create –f qcow2 webserving.img 50G
-```
+    ```
+    qemu-img create –f qcow2 webserving.img 50G
+    ```
 
 2. Install OS for webserver.img, here we use 64-bit ubuntu12.04
-```
-sudo qemu-system-x86_64 –had webserving-server.img –cdrom ubuntu12.04.iso -boot d -m 1024 -no-acpi -vnc :1
-```
+    ```
+    sudo qemu-system-x86_64 –had webserving-server.img –cdrom ubuntu12.04.iso -boot d -m 1024 -no-acpi -vnc :1
+    ```
 
 3. If the OS is ready, then we have to configure IP address and update the software source, also some softwares need to be installed.
-```
-sudo apt-get update
-sudo apt-get install openssh-server
-sudo apt-get install lrzsz
-sudo apt-get install vim
-sudo apt-get install ant
-sudo apt-get install patch
-sudo apt-get install git
-```
+    ```
+    sudo apt-get update
+    sudo apt-get install openssh-server
+    sudo apt-get install lrzsz
+    sudo apt-get install vim
+    sudo apt-get install ant
+    sudo apt-get install patch
+    sudo apt-get install git
+    ```
 
 4. Install openjdk6 and setup the environment
-```
-sudo apt-get install openjdk-6-jdk
-```
-Edit /etc/profile, add the following line to the end of the file
-```
-export JAVA_HOME="/usr/lib/jvm/java-1.6.0-openjdk-amd64"
-```
-Then execute the following command to put put the new configuration into effect
-```
-source /etc/profile
-```
+    ```
+    sudo apt-get install openjdk-6-jdk
+    ```
+    Edit /etc/profile, add the following line to the end of the file
+    ```
+    export JAVA_HOME="/usr/lib/jvm/java-1.6.0-openjdk-amd64"
+    ```
+    Then execute the following command to put put the new configuration into effect
+    ```
+    source /etc/profile
+    ```
 
 5. duplicate two VMs based on this img
-```
-cp webserving.img webserving-client.img
-cp webserving.img webserving-backend.img
-mv webserving.img webserving-server.img
-```
+    ```
+    cp webserving.img webserving-client.img
+    cp webserving.img webserving-backend.img
+    mv webserving.img webserving-server.img
+    ```
 
 6. Reconfigure the IP and MAC addresses of the three VMs. In my environment, client VM uses: 10.214.50.164, server VM uses 10.214.50.163 and the backend VM uses 10.214.50.165. Then use ssh-keygen and ssh-copy-id commands to make sure each VM can access the other two VMs without account and authentication requirements.
 
@@ -56,54 +56,52 @@ mv webserving.img webserving-server.img
 #Setting up the client machine
 
 1. Untar web benchmark package and setup the environment
+    ```
+    tar xzvf web.tar.gz
+    git clone https://github.com/nikolayg/faban.git
+    cp -ar faban/stage  web-release/
+    mv web-release/stage  web-release/faban
+    ```
+    edit /etc/profile, add the following command to the end: 
+    ```
+    export FABAN_HOME="/home/arc/workspace/web-release/faban"
+    ```
+    ```
+    source /etc/profile
+    cd web-release
+    ```
 
-```
-tar xzvf web.tar.gz
-git clone https://github.com/nikolayg/faban.git
-cp -ar faban/stage  web-release/
-mv web-release/stage  web-release/faban
-```
-edit /etc/profile, add the following command to the end: 
-```
-export FABAN_HOME="/home/arc/workspace/web-release/faban"
-```
-```
-source /etc/profile
-cd web-release
-```
 2.setup Olio
-
-```
-tar xzvf apache-olio-php-src-0.2.tar.gz
-```
-edit /etc/profile, add the following command to the end:  
-```
-export OLIO_HOME="/home/arc/workspace/web-release/apache-olio-php-src-0.2"
-```
-```
-source /etc/profile
-tar xzvf mysql-connector-java-5.0.8.tar.gz
-cp mysql-connector-java-5.0.8/mysql-connector-java-5.0.8-bin.jar $OLIO_HOME/workload/php/trunk/lib
-cd $FABAN_HOME
-cp samples/services/ApacheHttpdService/build/ApacheHttpdService.jar services/
-cp samples/services/MysqlService/build/MySQLService.jar services/
-cp samples/services/MemcachedService/build/MemcachedService.jar services/
-cd $OLIO_HOME/workload/php/trunk
-cp build.properties.template build.properties
-```
-edit build.properties as following
-```
-faban.home= /home/arc/workspace/web-release/faban
-faban.url=http://10.214.50.164:9980
-ant deploy.jar
-cp $OLIO_HOME/workload/php/trunk/build/OlioDriver.jar $FABAN_HOME/benchmarks
-```
+    ```
+    tar xzvf apache-olio-php-src-0.2.tar.gz
+    ```
+    edit /etc/profile, add the following command to the end:  
+    ```
+    export OLIO_HOME="/home/arc/workspace/web-release/apache-olio-php-src-0.2"
+    ```
+    ```
+    source /etc/profile
+    tar xzvf mysql-connector-java-5.0.8.tar.gz
+    cp mysql-connector-java-5.0.8/mysql-connector-java-5.0.8-bin.jar $OLIO_HOME/workload/php/trunk/lib
+    cd $FABAN_HOME
+    cp samples/services/ApacheHttpdService/build/ApacheHttpdService.jar services/
+    cp samples/services/MysqlService/build/MySQLService.jar services/
+    cp samples/services/MemcachedService/build/MemcachedService.jar services/
+    cd $OLIO_HOME/workload/php/trunk
+    cp build.properties.template build.properties
+    ```
+    edit build.properties as following
+    ```
+    faban.home= /home/arc/workspace/web-release/faban
+    faban.url=http://10.214.50.164:9980
+    ant deploy.jar
+    cp $OLIO_HOME/workload/php/trunk/build/OlioDriver.jar $FABAN_HOME/benchmarks
+    ```
 3. run faban master
-
-```
-$FABAN_HOME/master/bin/startup.sh
-```
-Now you can point your browser to :http://10.214.50.164:9980. You should see the OlioWorkload welcome note. Then copy the faban directory ($FABAN_HOME) to the server and backend machines. Faban directories must be in the same path on every machine.
+    ```
+    $FABAN_HOME/master/bin/startup.sh
+    ```
+    Now you can point your browser to :http://10.214.50.164:9980. You should see the OlioWorkload welcome note. Then copy the faban directory ($FABAN_HOME) to the server and backend machines. Faban directories must be in the same path on every machine.
 
 #Setting up the backend machine
 
