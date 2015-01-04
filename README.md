@@ -23,6 +23,8 @@ For ZJU Arclab members, refer [ZJU ArcLab GitLab](http://arc.zju.edu.cn:18083/ar
 
 * [Media Streaming Tutorail](https://github.com/chetui/CloudSuiteTutorial/tree/master/media_streaming)
 
+* [Web Serving](https://github.com/chetui/CloudSuiteTutorial/tree/master/web_serving)
+
 ### References
 
 * [Official HomePage](http://parsa.epfl.ch/cloudsuite/cloudsuite.html)  
