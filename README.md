@@ -23,6 +23,6 @@ The motivation of this repo is to help our [ZJU ArcLab](http://arc.zju.edu.cn) m
 
 ### References
 
-* [Official HomePage](http://parsa.epfl.ch/cloudsuite/cloudsuite.html)  
+* [Official HomePage](http://cloudsuite.ch/)  
 
-* [Official Source Code & Install Guide](http://parsa.epfl.ch/cloudsuite/downloads.html)  
+* [Official Source Code](https://github.com/parsa-epfl/cloudsuite)  
